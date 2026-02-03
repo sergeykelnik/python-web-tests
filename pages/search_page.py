@@ -13,10 +13,12 @@ class SearchPage(BasePage):
 
     # Locators
     SEARCH_INPUT = (By.CSS_SELECTOR, "input[type='search'], input[aria-label='Search Input']")
-    STREAMER_AVATAR = (By.XPATH, "(//div[@role='list']/div[contains(@class,'Layout-')]"
-                                 "//img[contains(@class, 'tw-image-avatar')])[1]")
     CHANNELS_TAB = (By.XPATH, "//div[contains(text(), 'Channels')]")
     SEARCH_RESULT = (By.XPATH, "(//img)[1]")
+    SEARCH_RESULT_BY_INDEX = "(//img)[{index}]"
+    START_WATCHING_BUTTON = (By.XPATH, "//div[contains(text(),'Start Watching')]")
+    STREAMER_AVATAR = (By.XPATH, "//img[contains(@class, 'tw-image-avatar')]")
+    STREAMER_AVATAR_POPUP = (By.XPATH, "(//img[contains(@class, 'tw-image-avatar')])[2]")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
@@ -43,11 +45,21 @@ class SearchPage(BasePage):
         super().swipe(max_scrolls=max_scrolls, pause=pause)
         return self
 
-    def select_streamer(self) -> "StreamerPage":
+    def select_streamer_by_index(self, index: int = 1) -> "StreamerPage":
         """
-        Select a streamer from the results by index.
+        Select a streamer from the results by 1-based index.
+
+        Args:
+            index: The 1-based index of the streamer to select.
         """
+        if index < 1:
+            raise ValueError("index must be a positive integer")
+        locator = (By.XPATH, self.SEARCH_RESULT_BY_INDEX.format(index=index))
+        self.click(locator)
+        if self.is_element_visible(self.START_WATCHING_BUTTON):
+            self.click(self.START_WATCHING_BUTTON)
         self.click(self.STREAMER_AVATAR)
+        self.click(self.STREAMER_AVATAR_POPUP)
         return StreamerPage(self.driver)
 
     def click_channels_tab(self) -> "SearchPage":

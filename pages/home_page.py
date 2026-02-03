@@ -13,7 +13,7 @@ class HomePage(BasePage):
     """Page Object for Twitch Home Page."""
 
     # Locators
-    SEARCH_BUTTON = (By.XPATH, "(//div[contains(text(),'Browse')])[1]") #Text-related locators should be handled during l8n testing
+    SEARCH_BUTTON = (By.XPATH, "(//a[@href='/directory'])[1]")
     ACCEPT_COOKIES = (By.XPATH, "(//button[@data-a-target='consent-banner-accept'])[1]")
 
     def __init__(self, driver: WebDriver):
@@ -27,7 +27,8 @@ class HomePage(BasePage):
 
     def accept_cookies_if_present(self) -> "HomePage":
         """Accept cookies if the banner is present."""
-        self.click(self.ACCEPT_COOKIES)
+        if self.is_element_visible(self.ACCEPT_COOKIES):
+            self.click(self.ACCEPT_COOKIES)
         return self
 
     def click_search_icon(self) -> "SearchPage":

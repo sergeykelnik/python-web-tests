@@ -13,13 +13,20 @@ from pages.home_page import HomePage
 class TestTwitchSearch:
     """Test suite for Twitch search functionality with mobile emulation."""
 
-    def test_search_starcraft_and_select_streamer(self, driver: WebDriver):
+    @pytest.mark.parametrize(
+        "search_query",
+        [
+            "StarCraft II",
+            "Counter Strike"
+        ],
+    )
+    def test_search_game_and_select_streamer(self, driver: WebDriver, search_query: str):
         """
         Test the complete flow:
         1. Go to Twitch
         2. Accept cookies if present
         3. Click on the search icon
-        4. Input "StarCraft II"
+        4. Input search query
         5. Scroll down 2 times
         6. Select one streamer
         7. Make sure the video player is visible
@@ -32,7 +39,7 @@ class TestTwitchSearch:
 
         search_page = home_page.click_search_icon()
 
-        search_page.search_for("StarCraft II")
+        search_page.search_for(search_query)
 
         search_page.click_channels_tab()
 
@@ -40,7 +47,7 @@ class TestTwitchSearch:
 
         search_page.swipe(max_scrolls=2, pause=1)
 
-        streamer_page = search_page.select_streamer()
+        streamer_page = search_page.select_streamer_by_index(3)
 
         assert streamer_page.is_video_player_visible()
-        streamer_page.take_screenshot("test_search_starcraft_complete",1)
+        streamer_page.take_screenshot(f"PASS_test_search_game_and_select_streamer['{search_query}']", 1)

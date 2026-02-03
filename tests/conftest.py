@@ -35,4 +35,4 @@ def pytest_runtest_makereport(item):
         if Config.SCREENSHOT_ON_FAILURE:
             driver = item.funcargs.get("driver") or item.funcargs.get("driver_headless")
             if driver:
-                Helpers.take_screenshot(driver, f"FAILED_{item.name}")
+                Helpers.take_screenshot(driver, f"FAIL_{item.name}")
