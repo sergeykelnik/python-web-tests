@@ -36,9 +36,11 @@ class TestTwitchSearch:
 
         search_page.click_channels_tab()
 
-        search_page.swipe(max_scrolls=2, pause=3.0)
+        assert search_page.is_search_result_visible()
+
+        search_page.swipe(max_scrolls=2, pause=1)
 
         streamer_page = search_page.select_streamer()
 
         assert streamer_page.is_video_player_visible()
-        streamer_page.take_screenshot("test_search_starcraft_complete")
+        streamer_page.take_screenshot("test_search_starcraft_complete",1)
