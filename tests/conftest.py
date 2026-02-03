@@ -1,6 +1,4 @@
-"""
-Pytest fixtures for test configuration.
-"""
+"""Pytest fixtures for test configuration."""
 
 import pytest
 
@@ -11,13 +9,7 @@ from utils.helpers import Helpers
 
 @pytest.fixture(scope="function")
 def driver():
-    """
-    Create a Chrome WebDriver instance for each test.
-    Uses settings from .env file (headless, mobile_emulation, device).
-
-    Yields:
-        Chrome WebDriver instance
-    """
+    """Create Chrome WebDriver for each test."""
     _driver = DriverFactory.create_driver()
     yield _driver
     _driver.quit()
@@ -25,9 +17,7 @@ def driver():
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item):
-    """
-    Hook to capture screenshots on test failure.
-    """
+    """Capture screenshots on test failure."""
     outcome = yield
     rep = outcome.get_result()
 

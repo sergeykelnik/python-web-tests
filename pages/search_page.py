@@ -1,6 +1,4 @@
-"""
-Twitch Search Page Object.
-"""
+"""Twitch Search Page Object."""
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -9,9 +7,8 @@ from pages.streamer_page import StreamerPage
 
 
 class SearchPage(BasePage):
-    """Page Object for Twitch Search Page."""
+    """Twitch Search Page."""
 
-    # Locators
     SEARCH_INPUT = (By.CSS_SELECTOR, "input[type='search'], input[aria-label='Search Input']")
     CHANNELS_TAB = (By.XPATH, "//div[contains(text(), 'Channels')]")
     SEARCH_RESULT = (By.XPATH, "(//img)[1]")
@@ -24,34 +21,18 @@ class SearchPage(BasePage):
         super().__init__(driver)
 
     def search_for(self, query: str) -> "SearchPage":
-        """
-        Perform a complete search operation.
-
-        Args:
-            query: Search term to search for
-        """
+        """Type search query and submit."""
         self.type(self.SEARCH_INPUT, query)
         self.press_enter(self.SEARCH_INPUT)
         return self
 
     def swipe(self, max_scrolls: int = 3, pause: float = 0.5) -> "SearchPage":
-        """
-        Scroll down the search results using mouse wheel movements.
-
-        Args:
-            max_scrolls: Number of times to scroll down (default: 3)
-            pause: Pause duration in seconds between scrolls (default: 0.5)
-        """
+        """Scroll down the search results."""
         super().swipe(max_scrolls=max_scrolls, pause=pause)
         return self
 
     def select_streamer_by_index(self, index: int = 1) -> "StreamerPage":
-        """
-        Select a streamer from the results by 1-based index.
-
-        Args:
-            index: The 1-based index of the streamer to select.
-        """
+        """Select streamer by 1-based index."""
         if index < 1:
             raise ValueError("index must be a positive integer")
         locator = (By.XPATH, self.SEARCH_RESULT_BY_INDEX.format(index=index))
@@ -63,9 +44,10 @@ class SearchPage(BasePage):
         return StreamerPage(self.driver)
 
     def click_channels_tab(self) -> "SearchPage":
-        """Click on the Channels tab."""
+        """Click the Channels tab."""
         self.click(self.CHANNELS_TAB)
         return self
 
     def is_search_result_visible(self) -> bool:
+        """Check if search results are visible."""
         return self.is_element_visible(self.SEARCH_RESULT)

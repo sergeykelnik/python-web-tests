@@ -56,7 +56,7 @@ class MobileDevices:
 
     @classmethod
     def get_device(cls, device_name: str) -> DeviceProfile:
-        """Get a device profile by name."""
+        """Get device profile by name."""
         devices = {
             "iPhone 12 Pro": cls.IPHONE_12_PRO,
             "Pixel 7": cls.PIXEL_7,

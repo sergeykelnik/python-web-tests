@@ -1,7 +1,4 @@
-"""
-Test cases for Twitch search functionality.
-Tests run with Chrome mobile emulation.
-"""
+"""Test cases for Twitch search functionality."""
 import pytest
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -11,7 +8,7 @@ from pages.home_page import HomePage
 @pytest.mark.smoke
 @pytest.mark.mobile
 class TestTwitchSearch:
-    """Test suite for Twitch search functionality with mobile emulation."""
+    """Twitch search tests with mobile emulation."""
 
     @pytest.mark.parametrize(
         "search_query",
@@ -21,17 +18,7 @@ class TestTwitchSearch:
         ],
     )
     def test_search_game_and_select_streamer(self, driver: WebDriver, search_query: str):
-        """
-        Test the complete flow:
-        1. Go to Twitch
-        2. Accept cookies if present
-        3. Click on the search icon
-        4. Input search query
-        5. Scroll down 2 times
-        6. Select one streamer
-        7. Make sure the video player is visible
-        8. Make a screenshot of the final state
-        """
+        """Test search game, select streamer, and verify video player."""
         home_page = HomePage(driver)
         home_page.open()
 
