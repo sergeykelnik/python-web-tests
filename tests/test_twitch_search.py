@@ -48,7 +48,7 @@ class TestTwitchSearch:
         search_page.swipe(max_scrolls=2, pause=1)
 
         logger.info("Selecting streamer at index 3")
-        streamer_page = search_page.select_streamer_by_index(3)
+        streamer_page = search_page.select_streamer_by_index(2)
 
         logger.info("Verifying video player is visible")
         assert streamer_page.is_video_player_visible()

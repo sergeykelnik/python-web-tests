@@ -40,7 +40,8 @@ class SearchPage(BasePage):
         if self.is_element_visible(self.START_WATCHING_BUTTON):
             self.click(self.START_WATCHING_BUTTON)
         self.click(self.STREAMER_AVATAR)
-        self.click(self.STREAMER_AVATAR_POPUP)
+        if self.is_element_visible(self.STREAMER_AVATAR_POPUP):
+            self.click(self.STREAMER_AVATAR_POPUP)
         return StreamerPage(self.driver)
 
     def click_channels_tab(self) -> "SearchPage":
