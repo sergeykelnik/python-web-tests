@@ -2,5 +2,4 @@ selenium>=4.40.0
 pytest>=9.0.2
 pytest-html>=4.2.0
 python-dotenv>=1.2.1
-allure-pytest>=2.15.3
 flake8>=6.0.0
