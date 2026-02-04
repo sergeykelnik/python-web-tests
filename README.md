@@ -2,11 +2,11 @@
 
 Selenium-based tests for the Twitch mobile web app using Python, pytest, and a Page Object Model.
 
-## Demo (GIF placeholder)
+## Demo
 
 ![Test run placeholder](demo/test-run.gif)
 
-## Run Tests (manual)
+## Run Tests
 
 Prereqs: Python 3.8+, Chrome.
 
@@ -17,7 +17,7 @@ pip install -r requirements.txt
 pytest
 ```
 
-## Project Structure (brief)
+## Project Structure
 
 ```
 config/    app settings and device profiles
